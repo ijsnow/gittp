@@ -8,11 +8,11 @@ $ go get github.com/ijsnow/gittp
 
 ### Documentation
 
-#### `func NewHandler(rootRepoPath string, check func(RequestInfo) (shouldServe bool, status int)) http.Handler`
+#### `func NewHandler(rootRepoPath string, check func(RequestInfo) (isPass bool, code int)) http.Handler`
 
 - `rootRepoPath` - Path to the directory where repositories are stored
 
-- `check` - A function to check if we should handle the request. If `shouldServe` == true, we serve, else respond with the http status code.
+- `check` - A function to check if we should handle the request. If `isPass` == true, we serve, else respond with the http status `code`.
 
 #### `type RequestInfo struct`
 

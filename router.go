@@ -13,6 +13,20 @@ type router struct {
 	check func(RequestInfo) (bool, int)
 }
 
+// IsGitRequest is a helper to ensure this is a git request
+func IsGitRequest(path string) bool {
+	action := strings.TrimRight(strings.TrimLeft(path, "/"), "/")
+
+	if !strings.Contains(action, "git-") &&
+		!strings.Contains(action, "info/") &&
+		!strings.Contains(action, "HEAD") &&
+		!strings.Contains(action, "objects/") {
+		return false
+	}
+
+	return true
+}
+
 func (rt router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	cleanPath := strings.TrimRight(strings.TrimLeft(r.URL.Path, "/"), "/")
 
@@ -21,11 +35,7 @@ func (rt router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	uname := args[0]
 	repo := cleanRepoName(args[1])
 
-	action := cleanPath
-	if !strings.Contains(action, "git-") &&
-		!strings.Contains(action, "info/") &&
-		!strings.Contains(action, "HEAD") &&
-		!strings.Contains(action, "objects/") {
+	if !IsGitRequest(cleanPath) {
 		http.Error(w, "not found", http.StatusNotFound)
 	}
 

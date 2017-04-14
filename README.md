@@ -25,6 +25,10 @@ type RequestInfo struct {
 }
 ```
 
+#### `func IsGitRequest(uri string) bool`
+
+- `uri` - The uri from the request to be checked
+
 ### Usage Example
 
 ```

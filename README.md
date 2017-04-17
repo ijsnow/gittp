@@ -16,7 +16,7 @@ $ go get github.com/ijsnow/gittp
 
 #### `type RequestInfo struct`
 
-```
+```go
 type RequestInfo struct {
 	RepoOwner string // Owner's username for requested repo
 	RepoName  string // Requested repo name
@@ -31,7 +31,7 @@ type RequestInfo struct {
 
 ### Usage Example
 
-```
+```go
 package main
 
 import (
